@@ -5,6 +5,7 @@ import { Route, NavLink } from "react-router-dom";
 import "./App.css";
 import SmurfForm from "./components/SmurfForm";
 import Smurfs from "./components/Smurfs";
+import SmurfDelete from "./components/SmurfDelete"
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class App extends Component {
         name: "",
         age: "",
         height: ""
-      }
+      },
+      deleteInput: ""
     };
   }
 
@@ -31,9 +33,8 @@ class App extends Component {
       .catch(err => console.log(err));
   };
   
-  addSmurf = event => {
-    event.preventDefault();
-    console.log("POOOOOO")
+  addSmurf = ev => {
+    ev.preventDefault();
     axios
     .post("http://localhost:3333/smurfs", this.state.input)
     .then(res => this.setState({ input: { name: "", age: "", height: "" } }))
@@ -43,8 +44,27 @@ class App extends Component {
     });
   }
 
+  killSmurf = ev => {
+    ev.preventDefault();
+    const doomedSmurf = this.state.smurfs.find(el => this.state.deleteInput == el.name);
+    console.log(doomedSmurf)
+    if (doomedSmurf) {
+      axios
+        .delete(`http://localhost:3333/smurfs/${doomedSmurf.id}`)
+        .then(this.getSmurfs)
+        .then(this.setState({deleteInput: ""}))
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
+
   handleInputChange = ev => {
     this.setState({ input: { ...this.state.input, [ev.target.name]: ev.target.value } });
+  };
+
+  handleDeleteInputChange = ev => {
+    this.setState({ deleteInput: ev.target.value });
   };
 
 
@@ -56,8 +76,9 @@ class App extends Component {
     return (
       <div className="App">
         <nav>
-          <NavLink to={"/"}>LOOK AT ALL THE SMURFS</NavLink>
-          <NavLink to={"/smurf-form"}>ADD A SMURFING SMURF</NavLink>
+          <NavLink exact className="nav-link" activeClassName="active" to={"/"}>LOOK AT ALL THE SMURFS</NavLink>
+          <NavLink className="nav-link" activeClassName="active" to={"/smurf-form"}>ADD A SMURFING SMURF</NavLink>
+          <NavLink className="nav-link" activeClassName="active" to={"/smurf-delete"}>REMOVE A SMURF</NavLink>
         </nav>
         <Route exact path="/" render={props =>
           <Smurfs
@@ -71,6 +92,14 @@ class App extends Component {
             input={this.state.input}
             handleInputChange={this.handleInputChange}
             addSmurf={this.addSmurf}
+          />
+        }/>
+        <Route path="/smurf-delete" render={props =>
+          <SmurfDelete
+            {...props}
+            input={this.state.deleteInput}
+            handleInputChange={this.handleDeleteInputChange}
+            killSmurf={this.killSmurf}
           />
         }/>
       </div>
