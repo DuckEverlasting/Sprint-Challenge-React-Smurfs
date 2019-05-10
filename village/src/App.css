@@ -59,6 +59,34 @@ button:active {
 }
 
 .Smurfs ul{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 0;
   padding: 0;
+}
+
+.Smurfs h1 {
+  border-top: 10px solid rgb(58, 112, 173);
+  border-bottom: 10px solid rgb(58, 112, 173);
+  background: lightblue;
+}
+
+.Smurf {
+  box-sizing: border-box;
+  border: 10px double rgb(58, 112, 173);
+  background: lightblue;
+  width: 230px;
+  margin: 10px;
+  padding: 5px 20px;
+  border-radius: 50%;
+}
+
+.Smurf h3 {
+  color: blue;
+  margin-bottom: 5px;
+}
+
+.Smurf p {
+  margin: 0 0 20px;
 }
