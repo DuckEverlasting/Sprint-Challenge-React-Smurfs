@@ -1,3 +1,64 @@
 .App {
   text-align: center;
 }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  width: 750px;
+  margin: 20px auto 40px;
+}
+
+nav .nav-link {
+  padding: 15px 20px;
+  background: lightblue;
+  color: blue;
+  font-weight: bold;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  text-decoration: none;
+}
+
+nav .nav-link:active {
+  background: rgb(137, 187, 204);
+}
+
+nav .active {
+  border: 2px solid blue;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0 auto;
+}
+
+form input {
+  padding: 5px;
+  border-radius: 10px;
+  margin: 8px 0;
+  outline: none;
+}
+
+form button {
+  padding: 10px 15px;
+  align-self: center;
+  background: rgb(58, 112, 173);
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  text-decoration: none;
+  outline: none;
+  user-select: none;
+}
+
+button:active {
+  background: rgb(35, 74, 119);
+}
+
+.Smurfs ul{
+  margin: 0;
+  padding: 0;
+}
